@@ -1,2 +1,30 @@
-<h2>Contact</h2>
-<p>Send me an email at programmer@example.com</p>
+<h2>Contact me</h2>
+<form action="/contact/send-message" method="POST" enctype="multipart/form-data.">
+  <label>
+    Your name: <input type="text" name="author">
+  </label>
+  <label>
+    Your email: <input type="email" name="sender">
+  </label>
+  <label>
+    Title: <input type="text" name="title">
+  </label>
+  <label>
+    Message: <textarea name="message"></textarea>
+  </label>
+  <label>
+    Image file: <input type="file" accept="image/gif, image/jpg, image/jpeg, image/png" name="fileName">
+  </label>
+  <button type="submit">Send message</button>
+  {{#if isSent}}
+  <div>
+    <p>The message has been sent!</p>
+    <p>File {{ fileName }} has been saved</p>
+  </div>
+  {{/if}}
+  {{#if isError}}
+  <div>
+    You left fields empty or tried to sent image with wrong type!
+  </div>
+  {{/if}}
+</form>

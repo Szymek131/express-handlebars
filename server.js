@@ -8,6 +8,7 @@ app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -30,7 +31,16 @@ app.get('/hello/:name', (req, res) => {
 });
 
 app.post('/contact/send-message', (req, res) => {
-  res.json(req.body);
+
+  const { author, sender, title, message, fileName } = req.body;
+
+  if (author && sender && title && message && fileName) {
+    res.render('contact', { isSent: true, fileName: fileName });
+  }
+  else {
+    res.render('contact', { isError: true });
+  }
+
 });
 
 app.get('/history', (req, res, next) => {
