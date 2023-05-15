@@ -29,12 +29,16 @@ app.get('/hello/:name', (req, res) => {
   res.render('hello', { name: req.params.name });
 });
 
+app.post('/contact/send-message', (req, res) => {
+  res.json(req.body);
+});
+
 app.get('/history', (req, res, next) => {
   res.render('history', { layout: 'dark' });
 });
 
 app.use((req, res) => {
-  res.status(404).show('404 not found...');
+  res.status(404).send('404 not found...');
 })
 
 app.listen(8000, () => {
